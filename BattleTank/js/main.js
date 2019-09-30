@@ -1,8 +1,11 @@
 var canvas = document.getElementById("canvas");
+if(canvas!=null)
+{
 var cx = canvas.getContext("2d");
 var width = canvas.getAttribute("width");
 var height = canvas.getAttribute("height");
 canvas.style.marginLeft = 35+"px";
+}
 //basic coordinates
 var tankWidth = 90;
 var tankHeight = 60;
@@ -16,6 +19,9 @@ var tankTwoAngle = 25;
 var tankOnePower = 1.3;
 var tankTwoPower = 1.3;
 
+//Player Names
+var playerOneName="Player-1";
+var playerTwoName="Player-2";
 
 //For Scores
 var playerOneScore = 0;
@@ -40,8 +46,8 @@ var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
 //count of bullets
-var tankOneBullets = 3;
-var tankTwoBullets = 3;
+var tankOneBullets = 1;
+var tankTwoBullets = 1;
 
 //position of tanks
 var baseY = 550;
@@ -92,9 +98,51 @@ var shotMusic=new Audio();
 var destroy=new Audio();
 var gameOverMusic=new Audio();
 
-shotMusic.src="/assets/sound/Gun_Shot-Marvin-1140816320.mp3";
-destroy.src="/assets/sound/Flashbang-Kibblesbob-899170896.mp3"
-gameOverMusic.src="/assets/sound/gameOver.mp3";
+shotMusic.src="assets/sound/Gun_Shot-Marvin-1140816320.mp3";
+destroy.src="assets/sound/Flashbang-Kibblesbob-899170896.mp3"
+gameOverMusic.src="assets/sound/gameOver.mp3";
+
+//Option Function
+
+function Option()
+{
+	document.getElementById("success").style.display="none";
+	document.getElementById("change").style.display="block";
+	document.getElementById("buttons").style.display="none";
+	document.getElementById("option").style.display="flex";
+	document.getElementById("option").style.justifyContent="space-around";
+	if(localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if( localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	document.getElementById("playerOne").placeholder=localStorage.getItem("playerOneName");
+	document.getElementById("playerTwo").placeholder=localStorage.getItem("playerTwoName");
+}
+
+//Change Name
+function change()
+{
+	playerOneName=document.getElementById("playerOne").value;
+	playerTwoName=document.getElementById("playerTwo").value;
+	if(playerOneName.length==0&&playerTwoName.length==0)
+	window.alert("Please Enter the name");
+	else
+	{
+	if(playerOneName.length!=0) localStorage.setItem("playerOneName",playerOneName);
+	if(playerTwoName.length!=0) localStorage.setItem("playerTwoName",playerTwoName);
+	document.getElementById("success").style.display="block";
+	document.getElementById("change").style.display="none";
+	}
+
+}
+
+//Back To Main
+function back()
+{
+	document.getElementById("buttons").style.display="flex";
+	document.getElementById("buttons").style.justifyContent="space-around";
+	document.getElementById("option").style.display="none";
+}
 
 
 document.addEventListener('keydown', function (event) {
@@ -224,6 +272,16 @@ document.addEventListener('keydown', function (event) {
 				tankTwoPower -= 0.1;
 			}
 		}
+	}
+
+	if(event.keyCode == 82 && gameOver==true)
+	{
+		window.location.reload();
+	}
+
+	if(event.keyCode == 69 && gameOver==true)
+	{
+		window.location.href = 'index.html';
 	}
 });
 
@@ -365,11 +423,16 @@ function scoreCard()
 	cx.lineWidth = "6";
 	cx.strokeStyle = "red";
 	cx.fillStyle="#000000";
-	cx.fillRect(400,100, 400,300);
+	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
-	cx.drawImage(scorecard,400,100,400,300)
-	cx.fillText("Player-1 : "+playerOneScore,510,320);
-	cx.fillText("Player-2 : "+playerTwoScore,510,370);
+	cx.drawImage(scorecard,400,100,400,350);
+	if( localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if(localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,510,360);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,510,395);
+	cx.fillText("Press R to replay E to Exit",406,435);
 	cx.stroke();
 }
 let showWind = false;
@@ -393,13 +456,13 @@ function animation() {
 		}
 		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
 		console.log(tankOnePower);
-		if(tankOnePower <= 30 && tankOnePower > 0){
+		if(tankOnePower <= 1.5 && tankOnePower > 1.29){
 			cx.fillstyle = "#f8e604";
-		}else if(tankOnePower <= 60 && tankOnePower > 30){
+		}else if(tankOnePower <= 1.8  && tankOnePower > 1.5){
 			cx.fillstyle = "#f87b05";
-		}else if(tankOnePower <= 30 && tankOnePower > 0){
+		}else if(tankOnePower <= 2.1 && tankOnePower > 1.8){
 			cx.fillstyle = "#ff4f00";
-		}else if(tankOnePower <= 60 && tankOnePower > 30){
+		}else if(tankOnePower <= 2.3 && tankOnePower > 2.1){
 			cx.fillstyle = "#ff3800";
 		}else{
 			cx.fillstyle = "#f60404"
@@ -413,7 +476,7 @@ function animation() {
 		}
 		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
 		cx.fillRect(tankTwoX + 60, tankTwoY - 200, 40, tankTwoPower * 50);
-		cx.fillStyle = "#fff";
+		cx.fillStyle = "#ff4f00";
 	}
 	if (tankOneFire == true) {
 		cx.drawImage(shotOneImg, shotOneX, shotOneY, shotWidth, shotHeight);
@@ -491,10 +554,9 @@ function animation() {
 	}
 	if (gameOver == true) {
 		gameOverMusic.play();		
-		scoreCard();
-		return;
+		scoreCard();	
 	}
 	requestAnimationFrame(animation);
 }
-animation();
+
 
