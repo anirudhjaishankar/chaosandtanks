@@ -89,9 +89,9 @@ var shotMusic=new Audio();
 var destroy=new Audio();
 var gameOverMusic=new Audio();
 
-shotMusic.src="/assets/sound/Gun_Shot-Marvin-1140816320.mp3";
-destroy.src="/assets/sound/Flashbang-Kibblesbob-899170896.mp3"
-gameOverMusic.src="/assets/sound/gameOver.mp3";
+shotMusic.src="assets/sound/Gun_Shot-Marvin-1140816320.mp3";
+destroy.src="assets/sound/Flashbang-Kibblesbob-899170896.mp3"
+gameOverMusic.src="assets/sound/gameOver.mp3";
 
 
 document.addEventListener('keydown', function (event) {
@@ -192,6 +192,11 @@ document.addEventListener('keydown', function (event) {
 				tankTwoAngle++;
 			}
 		}
+	}
+
+	if(event.keyCode == 82 && gameOver==true)
+	{
+		window.location.reload();
 	}
 }, false);
 
@@ -302,11 +307,12 @@ function scoreCard()
 	cx.lineWidth = "6";
 	cx.strokeStyle = "red";
 	cx.fillStyle="#000000";
-	cx.fillRect(400,100, 400,300);
+	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
-	cx.drawImage(scorecard,400,100,400,300)
-	cx.fillText("Player-1 : "+playerOneScore,510,320);
-	cx.fillText("Player-2 : "+playerTwoScore,510,370);
+	cx.drawImage(scorecard,400,100,400,350)
+	cx.fillText("Player-1 : "+playerOneScore,510,360);
+	cx.fillText("Player-2 : "+playerTwoScore,510,395);
+	cx.fillText("Press R to replay",475,435);
 	cx.stroke();
 }
 
@@ -396,8 +402,7 @@ function animation() {
 	}
 	if (gameOver == true) {
 		gameOverMusic.play();		
-		scoreCard();
-		return;
+		scoreCard();	
 	}
 	requestAnimationFrame(animation);
 }
