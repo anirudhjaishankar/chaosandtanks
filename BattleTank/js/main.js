@@ -1,8 +1,11 @@
 var canvas = document.getElementById("canvas");
+if(canvas!=null)
+{
 var cx = canvas.getContext("2d");
 var width = canvas.getAttribute("width");
 var height = canvas.getAttribute("height");
 canvas.style.marginLeft = 35+"px";
+}
 //basic coordinates
 var tankWidth = 90;
 var tankHeight = 60;
@@ -14,6 +17,9 @@ var playerActive = 1;
 var tankOneAngle = 25;
 var tankTwoAngle = 25;
 
+//Player Names
+var playerOneName="Player-1";
+var playerTwoName="Player-2";
 
 //For Scores
 var playerOneScore = 0;
@@ -37,8 +43,8 @@ var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
 //count of bullets
-var tankOneBullets = 3;
-var tankTwoBullets = 3;
+var tankOneBullets = 1;
+var tankTwoBullets = 1;
 
 //position of tanks
 var baseY = 550;
@@ -89,9 +95,51 @@ var shotMusic=new Audio();
 var destroy=new Audio();
 var gameOverMusic=new Audio();
 
-shotMusic.src="/assets/sound/Gun_Shot-Marvin-1140816320.mp3";
-destroy.src="/assets/sound/Flashbang-Kibblesbob-899170896.mp3"
-gameOverMusic.src="/assets/sound/gameOver.mp3";
+shotMusic.src="assets/sound/Gun_Shot-Marvin-1140816320.mp3";
+destroy.src="assets/sound/Flashbang-Kibblesbob-899170896.mp3"
+gameOverMusic.src="assets/sound/gameOver.mp3";
+
+//Option Function
+
+function Option()
+{
+	document.getElementById("success").style.display="none";
+	document.getElementById("change").style.display="block";
+	document.getElementById("buttons").style.display="none";
+	document.getElementById("option").style.display="flex";
+	document.getElementById("option").style.justifyContent="space-around";
+	if(localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if( localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	document.getElementById("playerOne").placeholder=localStorage.getItem("playerOneName");
+	document.getElementById("playerTwo").placeholder=localStorage.getItem("playerTwoName");
+}
+
+//Change Name
+function change()
+{
+	playerOneName=document.getElementById("playerOne").value;
+	playerTwoName=document.getElementById("playerTwo").value;
+	if(playerOneName.length==0 && playerTwoName.length==0)
+	window.alert("Please Enter the name");
+	else
+	{
+	if(playerOneName.length!=0) localStorage.setItem("playerOneName",playerOneName);
+	if(playerTwoName.length!=0) localStorage.setItem("playerTwoName",playerTwoName);
+	document.getElementById("success").style.display="block";
+	document.getElementById("change").style.display="none";
+	}
+
+}
+
+//Back To Main
+function back()
+{
+	document.getElementById("buttons").style.display="flex";
+	document.getElementById("buttons").style.justifyContent="space-around";
+	document.getElementById("option").style.display="none";
+}
 
 
 document.addEventListener('keydown', function (event) {
@@ -192,6 +240,16 @@ document.addEventListener('keydown', function (event) {
 				tankTwoAngle++;
 			}
 		}
+	}
+
+	if(event.keyCode == 82 && gameOver==true)
+	{
+		window.location.reload();
+	}
+
+	if(event.keyCode == 69 && gameOver==true)
+	{
+		window.location.href = 'index.html';
 	}
 }, false);
 
@@ -296,17 +354,96 @@ function missileCheckTwo() {
 	}
 }
  
+function checkStorageData()
+{
+	if (typeof(Storage) !== "undefined") 
+	{ 
+		bestScore=localStorage.getItem("score");
+		if(bestScore===undefined)
+        localStorage.setItem("score",0);
+		console.log("LOCAL Storage score is :"+bestScore);
+	}
+	else
+	window.alert("Sorry, your browser does not support Web Storage...");
+}
+
+function findBestScore()
+{
+	if(playerOneScore>=playerTwoScore && playerOneScore>=bestScore)
+		{
+			bestScore=playerOneScore;
+		}
+		else if(playerTwoScore>=bestScore)
+		{
+			 bestScore=playerTwoScore;
+		}
+}
+
+ function updateBestScore()
+ {
+	if(bestScore!=0)
+	{
+		if (typeof(Storage) !== "undefined") {
+			// Store the data
+			localStorage.setItem("score",bestScore);
+			// Retrieve the data
+			bestScore= localStorage.getItem("score");
+			console.log("Updated best score is:"+bestScore);
+		  } else {
+			window.alert("Sorry, your browser does not support Web Storage...");
+		  }  
+	}
+	else 
+	{
+		if(playerOneScore>=playerTwoScore)
+		bestScore=playerOneScore;
+		else
+		bestScore=playerTwoScore;
+		console.log("Updated best score with zero:"+bestScore);
+	}
+ }
+ 
+ function findWinner()
+ {
+	 if(playerOneScore==playerTwoScore)
+	 cx.fillText("This is just the beginning!",440,230);
+	 else if(playerOneScore>playerTwoScore)
+	 cx.fillText(playerOneName+" Wins!",500,240);
+	 else
+	 cx.fillText(playerTwoName+" Wins!",500,240);
+	  
+ }
+
  function scoreCard()
 {
 	cx.beginPath();
 	cx.lineWidth = "6";
 	cx.strokeStyle = "red";
 	cx.fillStyle="#000000";
-	cx.fillRect(400,100, 400,300);
+	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
-    cx.drawImage(scorecard,400,100,400,300)
-	cx.fillText("Player-1 : "+playerOneScore,510,320);
-	cx.fillText("Player-2 : "+playerTwoScore,510,370);
+	cx.font="bold 70px warFont";
+	cx.fillText("Game Over!",435,170);
+	let firstplayer= localStorage.getItem("playerOneName");
+	let secondplayer=localStorage.getItem("playerTwoName");
+	if(firstplayer==null && secondplayer==null)
+	{
+		localStorage.setItem("playerOneName","Player-1");
+		localStorage.setItem("playerTwoName","Player-2");
+	}
+	if( localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if(localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	cx.font="bold 32px Roboto";
+	checkStorageData();
+	findBestScore();
+	updateBestScore();
+	findWinner();
+	cx.fillText("Best Score: "+bestScore,500,280);
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,500,320);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,500,370);
+	cx.fillText("Press R to replay E to Exit",406,435);
 	cx.stroke();
 }
 
@@ -395,11 +532,10 @@ function animation() {
 		missileCheckTwo();
 	}
 	if (gameOver == true) {
-		gameOverMusic.play();	
-		scoreCard();
-		return;
+		gameOverMusic.play();		
+		scoreCard();	
 	}
 	requestAnimationFrame(animation);
 }
-animation();
+
 
