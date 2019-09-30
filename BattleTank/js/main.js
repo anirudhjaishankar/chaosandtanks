@@ -14,6 +14,9 @@ var playerActive = 1;
 var tankOneAngle = 25;
 var tankTwoAngle = 25;
 
+//Player Names
+var playerOneName="Player-1";
+var playerTwoName="Player-2";
 
 //For Scores
 var playerOneScore = 0;
@@ -310,8 +313,8 @@ function scoreCard()
 	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
 	cx.drawImage(scorecard,400,100,400,350)
-	cx.fillText("Player-1 : "+playerOneScore,510,360);
-	cx.fillText("Player-2 : "+playerTwoScore,510,395);
+	cx.fillText(playerOneName+" : "+playerOneScore,510,360);
+	cx.fillText(playerTwoName+" : "+playerTwoScore,510,395);
 	cx.fillText("Press R to replay",475,435);
 	cx.stroke();
 }
