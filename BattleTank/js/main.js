@@ -295,8 +295,8 @@ function missileCheckTwo() {
 		}
 	}
 }
-
-function scoreCard()
+ 
+ function scoreCard()
 {
 	cx.beginPath();
 	cx.lineWidth = "6";
@@ -304,7 +304,7 @@ function scoreCard()
 	cx.fillStyle="#000000";
 	cx.fillRect(400,100, 400,300);
 	cx.fillStyle = "#fff";
-	cx.drawImage(scorecard,400,100,400,300)
+    cx.drawImage(scorecard,400,100,400,300)
 	cx.fillText("Player-1 : "+playerOneScore,510,320);
 	cx.fillText("Player-2 : "+playerTwoScore,510,370);
 	cx.stroke();
@@ -395,7 +395,7 @@ function animation() {
 		missileCheckTwo();
 	}
 	if (gameOver == true) {
-		gameOverMusic.play();		
+		gameOverMusic.play();	
 		scoreCard();
 		return;
 	}
