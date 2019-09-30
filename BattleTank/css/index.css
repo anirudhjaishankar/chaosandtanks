@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+@font-face {
+    font-family: warFont;
+    src: url('../assets/fonts/warmongerbb.ttf');
+  }
+
+body {
+    background-color: rgb(40, 26, 105);
+    overflow: hidden;
+    width: 100%;
+}
+
+.container {
+    background-image: url("../assets/images/background.png");
+    height: 90vmin;
+    width: 90vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heading {
+    font-family: warFont,sans-serif;
+    color: white;
+    font-size: 5.5em;
+    text-align: center;
+}
+
+#title {
+    margin: auto;
+    margin-top: 5vmin;
+    border: 0.1em solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg,#281A69,#5C79B9);
+    padding: 2%;
+    width: 6em;
+}
+
+.menu {
+    margin-top: 12%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.button:hover {
+    opacity: 0.5;
+}
+
+.button {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+    outline: none;
+}
+
+.button1 {
+    border: 2px solid rgb(40, 26, 105);
+}
+
+.button1:hover {
+    background-color: rgb(7, 16, 53);
+}
+
+.button2 {
+
+    border: 2px solid #008CBA;
+}
+
+.button2:hover {
+
+    background-color: rgb(88, 104, 175);
+}
+
+.button3 {
+    border: 2px solid #f44336;
+}
+
+.button3:hover {
+    background-color: lightcoral
+}
+
+
+.block {
+    display: flex;
+    justify-content: center;
+}
+
+.game-block {
+    height: 90vmin;
+    width: 90vmax;
+    margin-top: 5vmin;
+}
+
+@media (min-width:320px) {
+
+    /* smartphones, iPhone, portrait 480x320 phones */
+    .game-block {
+        background-color: black;
+    }
+}
+
+@media (min-width:481px) {
+
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .game-block {
+        background-color: blue;
+    }
+}
+
+@media (min-width:641px) {
+
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .game-block {
+        background-color: red;
+    }
+}
+
+@media (min-width:961px) {
+
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .game-block {
+        background-color: green;
+    }
+}
+
+@media (min-width:1025px) {
+
+    /* big landscape tablets, laptops, and desktops */
+    .game-block {
+        background-color: purple;
+    }
+}
+
+@media (min-width:1281px) {
+
+    /* hi-res laptops and desktops */
+    .game-block {
+        background-color: pink;
+    }
+}
+
+.game-canvas {
+    height: 100%;
+    width: 100%;
+}
+
+
+canvas {
+	position: absolute;
+	left: 360px;
+	top: 20px;
+}

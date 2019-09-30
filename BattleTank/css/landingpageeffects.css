@@ -1,0 +1,41 @@
+.fog-container {
+    position: absolute;
+    height: 100vmin;
+    width: 100vmax;
+    overflow: hidden;
+    z-index: 1;
+  }
+.fog-img {
+    position: absolute;
+    height: 100vh;
+    width: 300vw;
+    z-index: 2;
+  }
+  
+  .fog-img-first {
+    background: url("../assets/images/fog1.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position: center;
+    animation: marquee 60s linear infinite;
+    animation-direction: alternate;
+  }
+  
+  .fog-img-second {
+    background: url("../assets/images/fog2.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position: center;
+    animation: marquee 30s linear infinite;
+    animation-direction: alternate;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+  
+    100% {
+      transform: translate3d(-200vw, 0, 0);
+    }
+  }
