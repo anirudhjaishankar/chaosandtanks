@@ -19,3 +19,12 @@ function drawTurret2() {
 	cx.restore();
 	bulletTwoAngle = tankTwoAngle;
 }
+
+//Function to get wind value
+function getWind(){
+	wind = Math.random() * 0.1;
+	if(Math.random() > 0.5){
+		wind = -wind;
+	}
+	return wind;
+}

@@ -13,6 +13,8 @@ var bulletHeight = 8;
 var playerActive = 1;
 var tankOneAngle = 25;
 var tankTwoAngle = 25;
+var tankOnePower = 1.3;
+var tankTwoPower = 1.3;
 
 
 //For Scores
@@ -33,6 +35,7 @@ var tankOneFire = false;
 var tankTwofire = false;
 var move = true;
 var angle = true;
+var power = true;
 var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
@@ -61,8 +64,8 @@ var velocity = 15;
 var Angle = (bulletOneAngle * (Math.PI) / 180);
 var velocityx = velocity * Math.cos(Angle);
 var velocityy = velocity * Math.sin(Angle) * -1;
-var powerOne;
-var powerTwo;
+var powerOne = tankOnePower;
+var powerTwo = tankTwoPower;
 
 //Image variables
 var background = new Image();
@@ -102,8 +105,8 @@ document.addEventListener('keydown', function (event) {
 			if (tankOneBullets > 0 && tankOneFire == false) {
 				shotMusic.play();
 				var velocity;
+				powerOne = tankOnePower;
 				velocity = 13;
-				powerOne = 1.3;
 				time = 0;
 				velocity = 15;
 				shotOneX = tankOneX + 37 + tubeWidth * Math.cos(tankOneAngle * Math.PI / 180);
@@ -117,13 +120,15 @@ document.addEventListener('keydown', function (event) {
 				tankOneBullets--;
 				move = false;
 				angle = false;
+				power = false;
+				showWind = false;
 			}
 		}
 		else {
 			if (tankTwoBullets > 0 && tankTwofire == false) {
 				shotMusic.play();
 				var velocity;
-				powerTwo = 1.3;
+				powerTwo = tankTwoPower;
 				time = 0;
 				velocity = 15;
 				Angle = (tankTwoAngle * (Math.PI) / 180);
@@ -137,9 +142,10 @@ document.addEventListener('keydown', function (event) {
 				tankTwoBullets--;
 				move = false;
 				angle = false;
+				power = false;
+				showWind = false;
 			}
 		}
-
 	}
 
 	//Left Movement
@@ -193,7 +199,33 @@ document.addEventListener('keydown', function (event) {
 			}
 		}
 	}
-}, false);
+
+	//power increase
+	if(event.keyCode == 87 && power == true){
+		if(playerActive == 1){
+			if(tankOnePower < 3){
+				tankOnePower += 0.1;
+			}
+		}else{
+			if(tankTwoPower < 3){
+				tankTwoPower += 0.1;
+			}
+		}
+	}
+
+	//power decrease
+	if(event.keyCode == 83 && power == true){
+		if(playerActive == 1){
+			if(tankOnePower > 0){
+				tankOnePower -= 0.1;
+			}
+		}else{
+			if(tankTwoPower > 0){
+				tankTwoPower -= 0.1;
+			}
+		}
+	}
+});
 
 
 function missileCheckOne() {
@@ -205,6 +237,7 @@ function missileCheckOne() {
 		tankOneFire = false;
 		move = true;
 		angle = true;
+		power = true;
 		playerActive = 2;
 
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
@@ -220,6 +253,7 @@ function missileCheckOne() {
 		tankOneFire = false;
 		move = true;
 		angle = true;
+		power = true;
 		playerActive = 2;
 		
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
@@ -236,6 +270,7 @@ function missileCheckOne() {
 		tankOneFire = false;
 		move = true;
 		angle = true;
+		power = true;
 		playerActive = 2;
 
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
@@ -243,7 +278,20 @@ function missileCheckOne() {
 			gameOver = true;
 		}
 	}
+	if(shotOneX > canvas.clientWidth){
+		shotOneX = tankOneX + 37 + tubeWidth * Math.cos(tankOneAngle * Math.PI / 180);
+		shotOneY = tankOneY - tubeWidth * Math.sin(tankOneAngle * Math.PI / 180);
+		tankOneFire = false;
+		move = true;
+		angle = true;
+		power = true;
+		playerActive = 2;
 
+		if (tankOneBullets == 0 && tankTwoBullets == 0) {
+			
+			gameOver = true;
+		}
+	}
 
 }
 
@@ -256,7 +304,7 @@ function missileCheckTwo() {
 		tankTwofire = false;
 		move = true;
 		angle = true;
-
+		power = true;
 		playerActive = 1;
 
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
@@ -274,6 +322,7 @@ function missileCheckTwo() {
 		tankTwofire = false;
 		move = true;
 		angle = true;
+		power = true;
 		playerActive = 1;
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
 			gameOver = true;
@@ -288,6 +337,20 @@ function missileCheckTwo() {
 		tankTwofire = false;
 		move = true;
 		angle = true;
+		power = true;
+		playerActive = 1;
+
+		if (tankOneBullets == 0 && tankTwoBullets == 0) {
+			gameOver = true;
+		}
+	}
+	if(shotTwoX < 0){
+		shotTwoX = tankTwoX - 0.5 * tubeWidth * Math.cos(Angle);
+		shotTwoY = tankTwoY - tubeWidth * Math.sin(Angle);
+		tankTwofire = false;
+		move = true;
+		angle = true;
+		power = true;
 		playerActive = 1;
 
 		if (tankOneBullets == 0 && tankTwoBullets == 0) {
@@ -309,6 +372,7 @@ function scoreCard()
 	cx.fillText("Player-2 : "+playerTwoScore,510,370);
 	cx.stroke();
 }
+let showWind = false;
 
 function animation() {
 	cx.drawImage(background, 0, 0, width, height);
@@ -321,7 +385,36 @@ function animation() {
 	cx.fillStyle = "#fff";
 	cx.fillText(playerOneScore, 20, 120);
 	cx.fillText(playerTwoScore, 1185, 120);
-
+	if(playerActive == 1){
+		if(showWind == false){
+			wind = getWind();
+			showWind = true;
+			powerOne += wind;
+		}
+		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
+		console.log(tankOnePower);
+		if(tankOnePower <= 30 && tankOnePower > 0){
+			cx.fillstyle = "#f8e604";
+		}else if(tankOnePower <= 60 && tankOnePower > 30){
+			cx.fillstyle = "#f87b05";
+		}else if(tankOnePower <= 30 && tankOnePower > 0){
+			cx.fillstyle = "#ff4f00";
+		}else if(tankOnePower <= 60 && tankOnePower > 30){
+			cx.fillstyle = "#ff3800";
+		}else{
+			cx.fillstyle = "#f60404"
+		} 
+		cx.fillRect(tankOneX - 10, tankOneY - 200, 40, tankOnePower * 50);
+	}else if(playerActive == 2){
+		if(showWind == false){
+			wind = getWind();
+			showWind = true;
+			powerTwo += wind;
+		}
+		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
+		cx.fillRect(tankTwoX + 60, tankTwoY - 200, 40, tankTwoPower * 50);
+		cx.fillStyle = "#fff";
+	}
 	if (tankOneFire == true) {
 		cx.drawImage(shotOneImg, shotOneX, shotOneY, shotWidth, shotHeight);
 		time = time + inc;
@@ -356,37 +449,39 @@ function animation() {
 		velocityy = velocityy + gravity * inc * 0.01;
 		mountainHitTankOneX = shotOneX;
 		mountainHitTankOneY = shotOneY;
-		missileCheckOne();
+		missileCheckOne(); 
 	}
 	if (tankTwofire == true) {
 		cx.drawImage(shotTwoImg, shotTwoX, shotTwoY - 5, shotWidth, shotHeight);
 		time = time + inc;
 		shotTwoX = shotTwoX - velocityx * inc * powerTwo;
 		shotTwoY = shotTwoY + velocityy * inc * bounce2;
-		if (shotTwoX > 650 * Math.cos(Angle)) {
-			velocityy = velocityy + gravity * inc * 0.04;
-			if (tankTwoAngle <= 15) {
-				velocityy = velocityy + gravity * inc * 0.2;
-				bounce2 = 1;
-			}
-			else if (tankTwoAngle > 15 && tankTwoAngle <= 25) {
-				velocityy = velocityy + gravity * inc * 0.11;
-				bounce2 = 1.2;
-			}
-			else if (tankTwoAngle > 25 && tankTwoAngle <= 35) {
-				velocityy = velocityy + gravity * inc * 0.03;
-				bounce2 = 1.25;
-			}
-			else if (tankTwoAngle > 35 && tankTwoAngle <= 42) {
-				velocityy = velocityy + gravity * inc * 0.015;
-				bounce2 = 1.25;
+		if(shotTwoX < canvas.clientWidth && shotTwoX > 0){
+			if (shotTwoX > 650 * Math.cos(Angle)) {
+				velocityy = velocityy + gravity * inc * 0.04;
+				if (tankTwoAngle <= 15) {
+					velocityy = velocityy + gravity * inc * 0.2;
+					bounce2 = 1;
+				}
+				else if (tankTwoAngle > 15 && tankTwoAngle <= 25) {
+					velocityy = velocityy + gravity * inc * 0.11;
+					bounce2 = 1.2;
+				}
+				else if (tankTwoAngle > 25 && tankTwoAngle <= 35) {
+					velocityy = velocityy + gravity * inc * 0.03;
+					bounce2 = 1.25;
+				}
+				else if (tankTwoAngle > 35 && tankTwoAngle <= 42) {
+					velocityy = velocityy + gravity * inc * 0.015;
+					bounce2 = 1.25;
+				}
+				else {
+					bounce2 = 1.3;
+				}
 			}
 			else {
-				bounce2 = 1.3;
+				velocityy = velocityy + gravity * inc * 0.1;
 			}
-		}
-		else {
-			velocityy = velocityy + gravity * inc * 0.1;
 		}
 		velocityx = velocityx;
 		velocityy = velocityy + gravity * inc * 0.01;
