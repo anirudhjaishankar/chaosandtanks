@@ -193,43 +193,6 @@ document.addEventListener('keydown', function (event) {
 	}
 }, false);
 
-//Function which draws the Mountain
-function drawMountain() {
-	cx.beginPath();
-	cx.strokeStyle = "#070F3F";
-	cx.fillStyle = "#070F3F";
-	cx.moveTo(30, baseY);
-	cx.bezierCurveTo(100, 470, 160, 520, x1, y1);
-	cx.lineTo(x2, y2);
-	cx.lineTo(x3, y3);
-	cx.bezierCurveTo(1150, 490, 1200, 480, width - 30, baseY);
-	cx.closePath();
-	cx.stroke();
-	cx.fill();
-	cx.fillStyle = "#FFFFFF";
-}
-
-
-
-//Function which draws the tank's turret which is placed on the left side
-function drawTurret1() {
-	cx.save();
-	cx.translate(tankOneX + 39, tankOneY + 6);
-	cx.rotate(-1 * tankOneAngle * Math.PI / 180);
-	cx.drawImage(turret, 0, 0, tubeWidth, tubeHeight);
-	cx.restore();
-	bulletOneAngle = tankOneAngle;
-}
-
-//Function which draws the tank's turret which is placed on the left side
-function drawTurret2() {
-	cx.save();
-	cx.translate(tankTwoX + 38, tankTwoY + 13);
-	cx.rotate(Math.PI + tankTwoAngle * Math.PI / 180);
-	cx.drawImage(turret, 0, 0, tubeWidth, tubeHeight);
-	cx.restore();
-	bulletTwoAngle = tankTwoAngle;
-}
 
 function missileCheckOne() {
 	if (((mountainHitTankOneX + 10 >= tankTwoX) && (mountainHitTankOneX <= tankTwoX + tankWidth)) && ((mountainHitTankOneY >= tankTwoY - 8) && (mountainHitTankOneY <= tankTwoY + tankHeight))) {
