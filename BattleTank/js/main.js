@@ -71,6 +71,7 @@ var tankTwoImg = new Image();
 var turret = new Image();
 var shotOneImg = new Image();
 var shotTwoImg = new Image();
+var scorecard  = new Image();
 
 //Image variables assignment
 background.src = "assets/images/background.png";
@@ -79,6 +80,7 @@ tankTwoImg.src = "assets/images/tank2.png";
 turret.src = "assets/images/tanks_turret3.png";
 shotOneImg.src = "assets/images/shot.png";
 shotTwoImg.src = "assets/images/shot.png";
+scorecard.src="assets/images/gameover.jpg";
 
 
 //Music variables
@@ -294,6 +296,20 @@ function missileCheckTwo() {
 	}
 }
 
+function scoreCard()
+{
+	cx.beginPath();
+	cx.lineWidth = "6";
+	cx.strokeStyle = "red";
+	cx.fillStyle="#000000";
+	cx.fillRect(400,100, 400,300);
+	cx.fillStyle = "#fff";
+	cx.drawImage(scorecard,400,100,400,300)
+	cx.fillText("Player-1 : "+playerOneScore,510,320);
+	cx.fillText("Player-2 : "+playerTwoScore,510,370);
+	cx.stroke();
+}
+
 function animation() {
 	cx.drawImage(background, 0, 0, width, height);
 	drawMountain();
@@ -380,7 +396,7 @@ function animation() {
 	}
 	if (gameOver == true) {
 		gameOverMusic.play();		
-		window.alert("player-1:" + playerOneScore + "\n" + "player-2:" + playerTwoScore);
+		scoreCard();
 		return;
 	}
 	requestAnimationFrame(animation);
