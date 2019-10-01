@@ -42,7 +42,22 @@ img{
     padding-top:5rem;
     height:90px;
 }
+#tank_r
+{
+    margin-left:45%;
+    
+}
 
+#tank_l
+{
+    margin-left: 15%;
+   
+}
+#bullet
+{
+    height:65px;
+    transform: translate(510px,-150px);
+}
 
 .menu {
     margin-top: 12%;
