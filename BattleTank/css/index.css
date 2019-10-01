@@ -10,12 +10,13 @@ body {
     background-color: rgb(40, 26, 105);
     overflow: hidden;
     width: 100%;
+    margin:0;
 }
 
 .container {
     background-image: url("../assets/images/background.png");
-    height: 90vmin;
-    width: 90vmax;
+    height: 100vmin;
+    width: 100vmax;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
