@@ -38,6 +38,11 @@ body {
     width: 6em;
 }
 
+img{
+    padding-top:5rem;
+    height:90px;
+}
+
 
 .menu {
     margin-top: 12%;
