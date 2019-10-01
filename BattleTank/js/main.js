@@ -106,18 +106,36 @@ gameOverMusic.src="assets/sound/gameOver.mp3";
 
 function Option()
 {
-	document.getElementById("success").style.display="none";
-	document.getElementById("change").style.display="block";
-	document.getElementById("buttons").style.display="none";
-	document.getElementById("tank").style.display="none";
-	document.getElementById("option").style.display="flex";
-	document.getElementById("option").style.justifyContent="space-around";
+	document.getElementById("menu").style.display="none";
+	let option = document.getElementById("option");
+	option.style.display="block";
+	option.style.display="flex";
+	option.style.justifyContent="space-around";
 	if(localStorage.getItem("playerOneName")===null)
 	localStorage.setItem("playerOneName","Player-1");
 	if( localStorage.getItem("playerTwoName")===null)
 	localStorage.setItem("playerTwoName","Player-2");
 	document.getElementById("playerOne").placeholder=localStorage.getItem("playerOneName");
 	document.getElementById("playerTwo").placeholder=localStorage.getItem("playerTwoName");
+
+}
+
+//back from options
+function backOption(){
+	document.getElementById('option').style.display = "none";
+	document.getElementById('menu').style.display = "block";
+}
+
+//function to show instrcution in menu
+function showInstruction(){
+	document.getElementById('menu').style.display = "none";
+	let instruct = document.getElementById('instruction');
+	instruct.style.display = "block";
+}
+//function to return from options
+function backInstruction(){
+	document.getElementById('instruction').style.display = "none";
+	document.getElementById('menu').style.display = "block";
 }
 
 //Change Name

@@ -24,7 +24,7 @@
           <div class="heading">
             <div id="title">Chaos And Tanks</div>
           </div>
-          <div class="menu">
+          <div class="menu" id="menu">
             <div class="buttons" id="buttons">
               <button
                 class="button button1"
@@ -33,10 +33,16 @@
                 Start
               </button>
               <button class="button button2" onclick="Option()">Option</button>
+              <button class="button button3" onclick="showInstruction()">Instruction</button>
               <button class="button button3">Exit</button>
             </div>
-
-            <div class="option" id="option">
+            <div class="tank" id="tank">
+              <img src="assets/images/tank_splash_r.png" id="tank_l">
+              <img src="assets/images/single_shot.png" id="bullet">
+              <img src="assets/images/tank_splash_l.png" id="tank_r">
+            </div>
+          </div>
+          <div class="option" id="option">
               <input
                 type="text"
                 id="playerOne"
@@ -49,16 +55,57 @@
               /><br />
               <p id="success">Name  Updated</p>
               <button class="button-option button1" id="change" onclick="change()">Change</button>
-              <button class="button-option button3" onclick="back()">Back</button>
-            </div>
-            
-            <div class="tank" id="tank">
-              <img src="assets/images/tank_splash_r.png" id="tank_l">
-              <img src="assets/images/single_shot.png" id="bullet">
-              <img src="assets/images/tank_splash_l.png" id="tank_r">
-            </div>
-          
+              <button class="button-option button3" onclick="backOption()">Back</button>
           </div>
+
+          <div class="instruction" id="instruction">  
+            <div class="instruct">
+              <div class="instruct-row">
+                  <div class="instruct-line">
+                      <img src="assets/images/Keyboard_Black_W.png" alt="W key">
+                      <span class="instruct-helper">To increase power</span>
+                    </div>
+                    <div class="instruct-line">
+                      <img src="assets/images/Keyboard_Black_S.png" alt="S key">
+                      <span class="instruct-helper">To decrease power</span>
+                    </div>      
+              </div>
+              <div class="instruct-row">
+                <div class="instruct-line">
+                  <img src="assets/images/Keyboard_Black_Arrow_Up.png" alt="up arrow key">
+                  <span class="instruct-helper">To increase angle</span>
+                </div>
+                <div class="instruct-line">
+                  <img src="assets/images/Keyboard_Black_Arrow_Down.png" alt="down arrow key">
+                  <span class="instruct-helper">To decrease angle</span>
+                </div>
+              </div>
+              <div class="instruct-row">
+                  <div class="instruct-line">
+                    <img src="assets/images/Keyboard_Black_Arrow_Right.png" alt="right arrow key">
+                    <span class="instruct-helper">To move Right</span>
+                  </div>
+                  <div class="instruct-line">
+                    <img src="assets/images/Keyboard_Black_Arrow_Left.png" alt="left arrow key">
+                    <span class="instruct-helper">To move left</span>
+                  </div>
+              </div>
+            </div>
+            <div class="instruct-after">
+                <div class="instruct-line">
+                    <img src="assets/images/Keyboard_Black_Space.png" alt="spacebar key">
+                    <span class="instruct-helper"> To fire</span>
+                </div>
+                <div class="instruct-line">
+                      <span class="instruct-helper" id="instruct-helper-line">Remember to check the wind.</span>
+                </div>
+                <div class="instruct-line">
+                    <button class="button-option button3" onclick="backInstruction()" id="instruct-back">Back</button>
+                </div>
+            </div>
+          </div>
+            
+
         </div>
       </div>
     </div>

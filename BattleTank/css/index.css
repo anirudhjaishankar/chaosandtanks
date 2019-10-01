@@ -228,3 +228,40 @@ canvas {
 	left: 360px;
 	top: 20px;
 }
+
+.instruction{
+    display:none;
+}
+
+.instruct-line{
+    display:flex;
+    align-items:center;
+}
+
+.instruct-line img{
+    padding-top:0;
+}
+.instruct-helper{
+    font-family:'Lato';
+    font-size: 30px;
+    color:white;
+    display:block;
+}
+.instruct-row{
+    display:inline-block;
+}
+.instruct{
+    display:flex;
+    justify-content: center;
+}
+.instruct-after{
+    margin-left:45%;
+}
+
+#instruct-helper-line{
+    margin-left:-5rem;
+}
+
+#instruct-back{
+    margin-top:1rem;
+}
