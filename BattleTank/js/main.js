@@ -4,7 +4,6 @@ if(canvas!=null)
 var cx = canvas.getContext("2d");
 var width = canvas.getAttribute("width");
 var height = canvas.getAttribute("height");
-canvas.style.marginLeft = 35+"px";
 }
 //basic coordinates
 var tankWidth = 90;
@@ -46,15 +45,15 @@ var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
 //count of bullets
-var tankOneBullets = 1;
-var tankTwoBullets = 1;
+var tankOneBullets = 10;
+var tankTwoBullets = 10;
 
 //position of tanks
 var baseY = 550;
 var tankOneX = 0;
-var tankOneY = 436;
-var tankTwoX = 1130;
-var tankTwoY = 436;
+var tankOneY = 450;
+var tankTwoX = 1260;
+var tankTwoY = 450;
 var shotWidth = 20;
 var shotHeight = 15;
 var hitY1;
@@ -146,7 +145,6 @@ function back()
 	document.getElementById("tank").style.display="block";
 }
 
-
 document.addEventListener('keydown', function (event) {
 
 	//space to fire
@@ -205,7 +203,7 @@ document.addEventListener('keydown', function (event) {
 				tankOneX -= 20;
 		}
 		else {
-			if (tankTwoX > 1050)
+			if (tankTwoX >= 1180)
 				tankTwoX -= 20;
 		}
 	}
@@ -213,11 +211,11 @@ document.addEventListener('keydown', function (event) {
 	//Right Movement
 	if (event.keyCode == 39 && move == true) {
 		if (playerActive == 1) {
-			if (tankOneX < 140)
+			if (tankOneX < 80)
 				tankOneX += 20;
 		}
 		else {
-			if (tankTwoX < 1190)
+			if (tankTwoX < 1260)
 				tankTwoX += 20;
 		}
 	}
@@ -289,8 +287,6 @@ document.addEventListener('keydown', function (event) {
 
 
 function missileCheckOne() {
-	console.log(shotOneY);
-
 	if (((mountainHitTankOneX + 10 >= tankTwoX) && (mountainHitTankOneX <= tankTwoX + tankWidth)) && ((mountainHitTankOneY >= tankTwoY - 8) && (mountainHitTankOneY <= tankTwoY + tankHeight))) {
 		playerOneScore += 5;
 		destroy.play();
@@ -529,7 +525,7 @@ function animation() {
 	if(localStorage.getItem("playerTwoName")===null)
 	localStorage.setItem("playerTwoName","Player-2");
 	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore, 30, 100);
-	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1050, 100);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1180, 100);
 	if(playerActive == 1){
 		if(showWind == false){
 			wind = getWind();
