@@ -43,19 +43,25 @@
             </div>
           </div>
           <div class="option" id="option">
+            <div class="option-row">
+              <p id="playerOneName">Player One</p>
               <input
-                type="text"
-                id="playerOne"
-                placeholder="PlayerOneName"
-              /><br />
+              type="text"
+              id="playerOne"
+              placeholder="PlayerOneName"/>
+            </div>
+
+            <div class="option-row">
+              <p id="playerTwoName">Player Two</p>
               <input
                 type="text"
                 id="playerTwo"
                 placeholder="PlayerTwoName"
-              /><br />
-              <p id="success">Name  Updated</p>
-              <button class="button-option button1" id="change" onclick="change()">Change</button>
-              <button class="button-option button3" onclick="backOption()">Back</button>
+              />
+            </div>
+            <p id="success">Name  Updated</p>
+            <button class="button-option button1" id="change" onclick="change()">Change</button>
+            <button class="button-option button3" id="back"onclick="backOption()">Back</button>
           </div>
 
           <div class="instruction" id="instruction">  

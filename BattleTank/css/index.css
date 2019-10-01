@@ -10,12 +10,14 @@ body {
     background-color: rgb(40, 26, 105);
     overflow: hidden;
     width: 100%;
+    margin:0;
+    font-family:"Lato";
 }
 
 .container {
     background-image: url("../assets/images/background.png");
-    height: 90vmin;
-    width: 90vmax;
+    height: 100vmin;
+    width: 100vmax;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -48,6 +50,7 @@ img{
     
 }
 
+
 #tank_l
 {
     margin-left: 15%;
@@ -56,8 +59,9 @@ img{
 #bullet
 {
     height:65px;
-    transform: translate(510px,-150px);
+    transform: translate(590px,-150px);
 }
+
 
 .menu {
     margin-top: 12%;
@@ -72,7 +76,10 @@ img{
 .option
 {
     display: none;
+    justify-content:center;
+    flex-direction: column;
 }
+
 
 .button:hover {
     opacity: 0.5;
@@ -84,11 +91,11 @@ img{
     background-color: transparent;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 0px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 30px;
+    font-size: 25px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 25px;
@@ -105,10 +112,14 @@ img{
     text-decoration: none;
     display: inline-block;
     font-size: 40px;
-    margin: 4px 2px;
+    margin: 10px 10px;
     cursor: pointer;
     border-radius: 25px;
     outline: none;
+}
+p{
+    font-size: 30px;
+    color:white;
 }
 #buttons
 {
@@ -140,12 +151,32 @@ img{
 .button3:hover {
     background-color: lightcoral
 }
+
+#back
+{
+    font-size:25px;
+    width:15%;
+    height: 2.5rem;
+    transform: translate(-10px,-50px);
+    margin-left:53%;
+}
+
+#change
+{
+    margin-top:5%;
+    margin-left:35%;
+    font-size:25px;
+    width:15%;
+    height: 2.5rem;
+}
 input{
     font-family: warFont,sans-serif;
     color: white;
     text-align: center;
     background-color: transparent;
     border-radius: 25px;
+    width:30%;
+    height: 2rem;
     outline: none;
     border: 2px solid #008CBA;
 }
@@ -265,3 +296,18 @@ canvas {
 #instruct-back{
     margin-top:1rem;
 }
+
+.option-row{
+    display:flex;
+    justify-content:center;
+}
+#playerOne{
+    margin-top:2rem;
+    margin-left:2rem;
+}
+#playerTwo{
+    margin-top:2rem;
+    margin-left:2rem;
+}
+
+
