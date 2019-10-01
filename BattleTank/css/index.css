@@ -48,6 +48,15 @@ img{
     
 }
 
+#playerOneName
+{
+    transform: translate(-200px,65px);
+}
+
+#playerTwoName
+{
+    transform: translate(-200px,65px);
+}
 #tank_l
 {
     margin-left: 15%;
@@ -58,6 +67,7 @@ img{
     height:65px;
     transform: translate(510px,-150px);
 }
+
 
 .menu {
     margin-top: 12%;
@@ -71,8 +81,11 @@ img{
 }
 .option
 {
+    transform: translate(500px,-150px);
     display: none;
+    align-items: center;
 }
+
 
 .button:hover {
     opacity: 0.5;
@@ -84,11 +97,11 @@ img{
     background-color: transparent;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 0px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 30px;
+    font-size: 25px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 25px;
@@ -105,10 +118,14 @@ img{
     text-decoration: none;
     display: inline-block;
     font-size: 40px;
-    margin: 4px 2px;
+    margin: 10px 10px;
     cursor: pointer;
     border-radius: 25px;
     outline: none;
+}
+p{
+    font-size: 30px;
+    color:white;
 }
 #buttons
 {
@@ -140,12 +157,31 @@ img{
 .button3:hover {
     background-color: lightcoral
 }
+
+#back
+{
+    font-size:25px;
+    width:15%;
+    height: 2.5rem;
+    transform: translate(-10px,-50px);
+    margin-left: 15rem;
+}
+
+#change
+{
+    margin-top:5%;
+    font-size:25px;
+    width:15%;
+    height: 2.5rem;
+}
 input{
     font-family: warFont,sans-serif;
     color: white;
     text-align: center;
     background-color: transparent;
     border-radius: 25px;
+    width:30%;
+    height: 2rem;
     outline: none;
     border: 2px solid #008CBA;
 }
