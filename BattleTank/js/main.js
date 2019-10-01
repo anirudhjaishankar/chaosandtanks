@@ -406,24 +406,27 @@ function findBestScore()
  function findWinner()
  {
 	 if(playerOneScore==playerTwoScore)
-	 cx.fillText("This is just the beginning!",440,230);
+	 cx.fillText("Both survived!",450,230);
 	 else if(playerOneScore>playerTwoScore)
-	 cx.fillText(playerOneName+" Wins!",500,240);
+	 {
+	 let playerone=localStorage.getItem("playerOneName");
+	 cx.fillText(playerone+" Wins!",450,240);
+	 }
 	 else
-	 cx.fillText(playerTwoName+" Wins!",500,240);
-	  
+	 {
+		 let playertwo=localStorage.getItem("playerTwoName");
+		 cx.fillText(playertwo+" Wins!",450,240);
+	 }  
  }
 
  function scoreCard()
 {
 	cx.beginPath();
-	cx.lineWidth = "6";
-	cx.strokeStyle = "red";
-	cx.fillStyle="#000000";
-	cx.fillRect(400,100, 400,350);
+	cx.fillStyle="#453977";
+	cx.fillRect(400,100, 430,350);
 	cx.fillStyle = "#fff";
-	cx.font="bold 70px warFont";
-	cx.fillText("Game Over!",435,170);
+	cx.font="60px Turret Road";
+	cx.fillText("Game Over!",445,170);
 	let firstplayer= localStorage.getItem("playerOneName");
 	let secondplayer=localStorage.getItem("playerTwoName");
 	if(firstplayer==null && secondplayer==null)
@@ -435,18 +438,35 @@ function findBestScore()
 	localStorage.setItem("playerOneName","Player-1");
 	if(localStorage.getItem("playerTwoName").length==0)
 	localStorage.setItem("playerTwoName","Player-2");
-	cx.font="bold 32px Roboto";
+	cx.font="bold 32px Turret Road";
 	checkStorageData();
 	findBestScore();
 	updateBestScore();
 	findWinner();
-	cx.fillText("Best Score: "+bestScore,500,280);
-	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,500,320);
-	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,500,370);
-	cx.fillText("Press R to replay E to Exit",406,435);
+	cx.fillText("Best Score: "+bestScore,450,280);
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,450,320);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,450,360);
+	cx.fillText("Press R to replay E to Exit",415,415);
 	cx.stroke();
 }
-
+function damagedTankEffect()
+{
+	if(playerOneScore!=playerTwoScore)
+	{
+		if(playerOneScore<playerTwoScore)
+		{
+			cx.fillText('🔥',tankOneX,tankOneY+20);
+			cx.fillText('🔥',tankOneX+20,tankOneY+50);
+			cx.fillText('🔥',tankOneX+40,tankOneY+20);
+		}
+		else
+		{
+			cx.fillText('🔥',tankTwoX,tankTwoY+20);
+			cx.fillText('🔥',tankTwoX+20,tankTwoY+50);
+			cx.fillText('🔥',tankTwoX+40,tankTwoY+20);
+		}
+	  }
+}
 function animation() {
 	cx.drawImage(background, 0, 0, width, height);
 	drawMountain();
@@ -458,7 +478,6 @@ function animation() {
 	cx.fillStyle = "#fff";
 	cx.fillText(playerOneScore, 20, 120);
 	cx.fillText(playerTwoScore, 1185, 120);
-
 	if (tankOneFire == true) {
 		cx.drawImage(shotOneImg, shotOneX, shotOneY, shotWidth, shotHeight);
 		time = time + inc;
@@ -532,6 +551,7 @@ function animation() {
 		missileCheckTwo();
 	}
 	if (gameOver == true) {
+		damagedTankEffect();
 		gameOverMusic.play();		
 		scoreCard();	
 	}

@@ -2,7 +2,6 @@
   font-family: warFont;
   src: url('../assets/fonts/warmongerbb.ttf');
 }
-
 .fog-container {
     position: absolute;
     height: 100vmin;
