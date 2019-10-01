@@ -446,8 +446,12 @@ function animation() {
 	cx.drawImage(tankTwoImg, tankTwoX, tankTwoY, tankWidth, tankHeight);
 	cx.font = "bold 32px Trebuchet MS";
 	cx.fillStyle = "#fff";
-	cx.fillText(playerOneScore, 20, 120);
-	cx.fillText(playerTwoScore, 1185, 120);
+	if( localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if(localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore, 20, 120);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1185, 120);
 	if(playerActive == 1){
 		if(showWind == false){
 			wind = getWind();
