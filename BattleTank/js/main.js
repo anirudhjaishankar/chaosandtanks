@@ -1,8 +1,11 @@
 var canvas = document.getElementById("canvas");
+if(canvas!=null)
+{
 var cx = canvas.getContext("2d");
 var width = canvas.getAttribute("width");
 var height = canvas.getAttribute("height");
 canvas.style.marginLeft = 35+"px";
+}
 //basic coordinates
 var tankWidth = 90;
 var tankHeight = 60;
@@ -40,8 +43,8 @@ var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
 //count of bullets
-var tankOneBullets = 3;
-var tankTwoBullets = 3;
+var tankOneBullets = 1;
+var tankTwoBullets = 1;
 
 //position of tanks
 var baseY = 550;
@@ -95,6 +98,48 @@ var gameOverMusic=new Audio();
 shotMusic.src="assets/sound/Gun_Shot-Marvin-1140816320.mp3";
 destroy.src="assets/sound/Flashbang-Kibblesbob-899170896.mp3"
 gameOverMusic.src="assets/sound/gameOver.mp3";
+
+//Option Function
+
+function Option()
+{
+	document.getElementById("success").style.display="none";
+	document.getElementById("change").style.display="block";
+	document.getElementById("buttons").style.display="none";
+	document.getElementById("option").style.display="flex";
+	document.getElementById("option").style.justifyContent="space-around";
+	if(localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if( localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	document.getElementById("playerOne").placeholder=localStorage.getItem("playerOneName");
+	document.getElementById("playerTwo").placeholder=localStorage.getItem("playerTwoName");
+}
+
+//Change Name
+function change()
+{
+	playerOneName=document.getElementById("playerOne").value;
+	playerTwoName=document.getElementById("playerTwo").value;
+	if(playerOneName.length==0&&playerTwoName.length==0)
+	window.alert("Please Enter the name");
+	else
+	{
+	if(playerOneName.length!=0) localStorage.setItem("playerOneName",playerOneName);
+	if(playerTwoName.length!=0) localStorage.setItem("playerTwoName",playerTwoName);
+	document.getElementById("success").style.display="block";
+	document.getElementById("change").style.display="none";
+	}
+
+}
+
+//Back To Main
+function back()
+{
+	document.getElementById("buttons").style.display="flex";
+	document.getElementById("buttons").style.justifyContent="space-around";
+	document.getElementById("option").style.display="none";
+}
 
 
 document.addEventListener('keydown', function (event) {
@@ -200,6 +245,11 @@ document.addEventListener('keydown', function (event) {
 	if(event.keyCode == 82 && gameOver==true)
 	{
 		window.location.reload();
+	}
+
+	if(event.keyCode == 69 && gameOver==true)
+	{
+		window.location.href = 'index.html';
 	}
 }, false);
 
@@ -312,10 +362,14 @@ function scoreCard()
 	cx.fillStyle="#000000";
 	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
-	cx.drawImage(scorecard,400,100,400,350)
-	cx.fillText(playerOneName+" : "+playerOneScore,510,360);
-	cx.fillText(playerTwoName+" : "+playerTwoScore,510,395);
-	cx.fillText("Press R to replay",475,435);
+	cx.drawImage(scorecard,400,100,400,350);
+	if( localStorage.getItem("playerOneName").length==0)
+	localStorage.setItem("playerOneName","Player-1");
+	if(localStorage.getItem("playerTwoName").length==0)
+	localStorage.setItem("playerTwoName","Player-2");
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,510,360);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,510,395);
+	cx.fillText("Press R to replay E to Exit",406,435);
 	cx.stroke();
 }
 
@@ -409,5 +463,5 @@ function animation() {
 	}
 	requestAnimationFrame(animation);
 }
-animation();
+
 

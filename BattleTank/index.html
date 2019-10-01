@@ -13,8 +13,7 @@
   <script>
     function backgroundMusic() {
       var bgmusic = new Audio();
-      bgmusic.src =
-        "./assets/sound/Army_Strong_Theme_Song-TheArmy-2003285390.mp3";
+      bgmusic.src = "./assets/sound/Army_Strong_Theme_Song-TheArmy-2003285390.mp3";
       bgmusic.play();
     }
   </script>
@@ -26,25 +25,37 @@
             <div id="title">BattleTanks</div>
           </div>
           <div class="menu">
-            <button
-              class="button button1"
-              onclick="window.location.href = 'game.html';"
-            >
-              Start
-            </button>
-            <button class="button button2">Option</button>
-            <button class="button button3">Exit</button>
+            <div class="buttons" id="buttons">
+              <button
+                class="button button1"
+                onclick="window.location.href = 'game.html';"
+              >
+                Start
+              </button>
+              <button class="button button2" onclick="Option()">Option</button>
+              <button class="button button3">Exit</button>
+            </div>
+
+            <div class="option" id="option">
+              <input
+                type="text"
+                id="playerOne"
+                placeholder="PlayerOneName"
+              /><br />
+              <input
+                type="text"
+                id="playerTwo"
+                placeholder="PlayerTwoName"
+              /><br />
+              <p id="success">Name  Updated</p>
+              <button class="button-option button1" id="change" onclick="change()">Change</button>
+              <button class="button-option button3" onclick="back()">Back</button>
+            </div>
+          
           </div>
         </div>
       </div>
     </div>
-    <div class="block" id="gameBlock">
-      <div class="game-block">
-        <canvas class="game-canvas" id="gameCanvas">
-          Sorry, but your browser doesn't seem like it supports canvas elements.
-          We are embarrassed for this! Please try with modern browers. (IE 9+)
-        </canvas>
-      </div>
-    </div>
+    <script src="js/main.js"></script>
   </body>
 </html>
