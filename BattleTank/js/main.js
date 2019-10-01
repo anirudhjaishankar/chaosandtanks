@@ -450,15 +450,15 @@ function animation() {
 	localStorage.setItem("playerOneName","Player-1");
 	if(localStorage.getItem("playerTwoName").length==0)
 	localStorage.setItem("playerTwoName","Player-2");
-	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore, 20, 120);
-	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1185, 120);
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore, 30, 100);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1050, 100);
 	if(playerActive == 1){
 		if(showWind == false){
 			wind = getWind();
 			showWind = true;
 			powerOne += wind;
 		}
-		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
+		cx.fillText("Wind: "+ Math.round((wind * 100)), 600,100);
 		console.log(tankOnePower);
 		if(tankOnePower <= 1.5 && tankOnePower > 1.29){
 			cx.fillstyle = "#f8e604";
