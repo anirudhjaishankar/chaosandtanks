@@ -45,8 +45,8 @@ var bulletOneAngle = tankOneAngle;
 var bulletTwoAngle = tankTwoAngle;
 
 //count of bullets
-var tankOneBullets = 10;
-var tankTwoBullets = 10;
+var tankOneBullets = 5;
+var tankTwoBullets = 5;
 
 //position of tanks
 var baseY = 550;
@@ -441,7 +441,6 @@ function checkStorageData()
 		bestScore=localStorage.getItem("score");
 		if(bestScore===undefined)
         localStorage.setItem("score",0);
-		console.log("LOCAL Storage score is :"+bestScore);
 	}
 	else
 	window.alert("Sorry, your browser does not support Web Storage...");
@@ -468,7 +467,6 @@ function findBestScore()
 			localStorage.setItem("score",bestScore);
 			// Retrieve the data
 			bestScore= localStorage.getItem("score");
-			console.log("Updated best score is:"+bestScore);
 		  } else {
 			window.alert("Sorry, your browser does not support Web Storage...");
 		  }  
@@ -479,53 +477,75 @@ function findBestScore()
 		bestScore=playerOneScore;
 		else
 		bestScore=playerTwoScore;
-		console.log("Updated best score with zero:"+bestScore);
 	}
  }
  
+ function damagedTankEffect()
+{
+    if(playerOneScore!=playerTwoScore)
+    {
+        if(playerOneScore<playerTwoScore)
+        {
+            cx.fillText('🔥',tankOneX,tankOneY+20);
+            cx.fillText('🔥',tankOneX+20,tankOneY+50);
+            cx.fillText('🔥',tankOneX+40,tankOneY+20);
+        }
+        else
+        {
+            cx.fillText('🔥',tankTwoX,tankTwoY+20);
+            cx.fillText('🔥',tankTwoX+20,tankTwoY+50);
+            cx.fillText('🔥',tankTwoX+40,tankTwoY+20);
+        }
+      }
+}
+
  function findWinner()
  {
-	 if(playerOneScore==playerTwoScore)
-	 cx.fillText("This is just the beginning!",440,230);
-	 else if(playerOneScore>playerTwoScore)
-	 cx.fillText(playerOneName+" Wins!",500,240);
-	 else
-	 cx.fillText(playerTwoName+" Wins!",500,240);
-	  
+     if(playerOneScore==playerTwoScore)
+     cx.fillText("Both survived!",450,230);
+     else if(playerOneScore>playerTwoScore)
+     {
+     let playerone=localStorage.getItem("playerOneName");
+     cx.fillText(playerone+" Wins!",450,240);
+     }
+     else
+     {
+         let playertwo=localStorage.getItem("playerTwoName");
+         cx.fillText(playertwo+" Wins!",450,240);
+     }  
  }
 
  function scoreCard()
-{
-	cx.beginPath();
-	cx.lineWidth = "6";
-	cx.strokeStyle = "red";
-	cx.fillStyle="#000000";
-	cx.fillRect(400,100, 400,350);
-	cx.fillStyle = "#fff";
-	cx.font="bold 70px warFont";
-	cx.fillText("Game Over!",435,170);
-	let firstplayer= localStorage.getItem("playerOneName");
-	let secondplayer=localStorage.getItem("playerTwoName");
-	if(firstplayer==null && secondplayer==null)
-	{
-		localStorage.setItem("playerOneName","Player-1");
-		localStorage.setItem("playerTwoName","Player-2");
-	}
-	if( localStorage.getItem("playerOneName")===null)
-	localStorage.setItem("playerOneName","Player-1");
-	if(localStorage.getItem("playerTwoName")===null)
-	localStorage.setItem("playerTwoName","Player-2");
-	cx.font="bold 32px Roboto";
-	checkStorageData();
-	findBestScore();
-	updateBestScore();
-	findWinner();
-	cx.fillText("Best Score: "+bestScore,500,280);
-	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,500,320);
-	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,500,370);
-	cx.fillText("Press R to replay E to Exit",406,435);
-	cx.stroke();
-}
+ {
+	 cx.beginPath();
+	 cx.fillStyle="#453977";
+	 cx.fillRect(400,100, 430,350);
+	 cx.fillStyle = "#fff";
+	 cx.font="60px Turret Road";
+	 cx.fillText("Game Over!",445,170);
+	 let firstplayer= localStorage.getItem("playerOneName");
+	 let secondplayer=localStorage.getItem("playerTwoName");
+	 if(firstplayer==null && secondplayer==null)
+	 {
+		 localStorage.setItem("playerOneName","Player-1");
+		 localStorage.setItem("playerTwoName","Player-2");
+	 }
+	 if( localStorage.getItem("playerOneName")===null)
+	 localStorage.setItem("playerOneName","Player-1");
+	 if(localStorage.getItem("playerTwoName")===null)
+	 localStorage.setItem("playerTwoName","Player-2");
+	 cx.font="bold 32px Turret Road";
+	 checkStorageData();
+	 findBestScore();
+	 updateBestScore();
+	 findWinner();
+	 cx.fillText("Best Score: "+bestScore,450,280);
+	 cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,450,320);
+	 cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,450,360);
+	 cx.fillText("Press R to replay E to Exit",415,415);
+	 cx.stroke();
+ }
+
 let showWind = false;
 
 function animation() {
@@ -667,7 +687,8 @@ function animation() {
 		missileCheckTwo();
 	}
 	if (gameOver == true) {
-		gameOverMusic.play();		
+		gameOverMusic.play();
+		damagedTankEffect();		
 		scoreCard();	
 	}
 	requestAnimationFrame(animation);

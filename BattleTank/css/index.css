@@ -59,7 +59,7 @@ img{
 #bullet
 {
     height:65px;
-    transform: translate(590px,-150px);
+    transform: translate(610px,-100px);
 }
 
 
@@ -72,6 +72,7 @@ img{
     display: none;
     font-size:25px;
     color: white;
+    margin-left:35%;
 }
 .option
 {
@@ -120,6 +121,7 @@ img{
 p{
     font-size: 30px;
     color:white;
+    
 }
 #buttons
 {
