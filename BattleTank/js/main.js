@@ -287,6 +287,8 @@ document.addEventListener('keydown', function (event) {
 
 
 function missileCheckOne() {
+	console.log(shotOneY);
+
 	if (((mountainHitTankOneX + 10 >= tankTwoX) && (mountainHitTankOneX <= tankTwoX + tankWidth)) && ((mountainHitTankOneY >= tankTwoY - 8) && (mountainHitTankOneY <= tankTwoY + tankHeight))) {
 		playerOneScore += 5;
 		destroy.play();
@@ -336,7 +338,7 @@ function missileCheckOne() {
 			gameOver = true;
 		}
 	}
-	if(shotOneX > canvas.clientWidth){
+	if(shotOneX > canvas.clientWidth || shotOneY > canvas.clientHeight){
 		shotOneX = tankOneX + 37 + tubeWidth * Math.cos(tankOneAngle * Math.PI / 180);
 		shotOneY = tankOneY - tubeWidth * Math.sin(tankOneAngle * Math.PI / 180);
 		tankOneFire = false;
@@ -402,7 +404,7 @@ function missileCheckTwo() {
 			gameOver = true;
 		}
 	}
-	if(shotTwoX < 0){
+	if(shotTwoX < 0 || shotTwoY > canvas.clientHeight){
 		shotTwoX = tankTwoX - 0.5 * tubeWidth * Math.cos(Angle);
 		shotTwoY = tankTwoY - tubeWidth * Math.sin(Angle);
 		tankTwofire = false;
@@ -532,29 +534,48 @@ function animation() {
 			showWind = true;
 			powerOne += wind;
 		}
-		cx.fillText("Wind: "+ Math.round((wind * 100)), 600,100);
-		console.log(tankOnePower);
-		if(tankOnePower <= 1.5 && tankOnePower > 1.29){
-			cx.fillstyle = "#f8e604";
+		let arrow = "<-"; 
+		let windValue = Math.round(wind * 100);
+		if(windValue > 0){
+			arrow = "->";
+		}
+		cx.fillText("Wind: "+ Math.abs(windValue)+"Km/hr"+arrow, 600,100);
+		if(tankOnePower <= 1.5 && tankOnePower > 0){
+			cx.fillStyle = "#f8e604";
 		}else if(tankOnePower <= 1.8  && tankOnePower > 1.5){
-			cx.fillstyle = "#f87b05";
+			cx.fillStyle = "#f87b05";
 		}else if(tankOnePower <= 2.1 && tankOnePower > 1.8){
-			cx.fillstyle = "#ff4f00";
+			cx.fillStyle = "#ff4f00";
 		}else if(tankOnePower <= 2.3 && tankOnePower > 2.1){
-			cx.fillstyle = "#ff3800";
-		}else{
-			cx.fillstyle = "#f60404"
+			cx.fillStyle = "#ff3800";
+		}else if(tankOnePower > 2.3){
+			cx.fillStyle = "#f60404"
 		} 
-		cx.fillRect(tankOneX - 10, tankOneY - 200, 40, tankOnePower * 50);
+		cx.fillRect(tankOneX + 10, tankOneY - 50, 25, -tankOnePower * 50);
 	}else if(playerActive == 2){
 		if(showWind == false){
 			wind = getWind();
 			showWind = true;
 			powerTwo += wind;
+		}		
+		let arrow = "<-"; 
+		let windValue = Math.round(wind * 100);
+		if(windValue > 0){
+			arrow = "->";
 		}
-		cx.fillText("Wind: "+ Math.round((wind * 100)), 600,100);
-		cx.fillRect(tankTwoX + 60, tankTwoY - 200, 40, tankTwoPower * 50);
-		cx.fillStyle = "#ff4f00";
+		cx.fillText("Wind: "+ Math.abs(windValue)+"Km/hr"+arrow, 600,100);
+		if(tankTwoPower <= 1.5 && tankTwoPower > 0){
+			cx.fillStyle = "#f8e604";
+		}else if(tankTwoPower <= 1.8  && tankTwoPower > 1.5){
+			cx.fillStyle = "#f87b05";
+		}else if(tankTwoPower <= 2.1 && tankTwoPower > 1.8){
+			cx.fillStyle = "#ff4f00";
+		}else if(tankTwoPower <= 2.3 && tankTwoPower > 2.1){
+			cx.fillStyle = "#ff3800";
+		}else if(tankTwoPower > 2.3){
+			cx.fillStyle = "#f60404"
+		} 
+		cx.fillRect(tankTwoX + 60, tankTwoY - 50, 25, -tankTwoPower * 50);
 	}
 	if (tankOneFire == true) {
 		cx.drawImage(shotOneImg, shotOneX, shotOneY, shotWidth, shotHeight);
