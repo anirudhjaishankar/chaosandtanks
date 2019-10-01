@@ -109,6 +109,7 @@ function Option()
 	document.getElementById("success").style.display="none";
 	document.getElementById("change").style.display="block";
 	document.getElementById("buttons").style.display="none";
+	document.getElementById("tank").style.display="none";
 	document.getElementById("option").style.display="flex";
 	document.getElementById("option").style.justifyContent="space-around";
 	if(localStorage.getItem("playerOneName")===null)
@@ -142,6 +143,7 @@ function back()
 	document.getElementById("buttons").style.display="flex";
 	document.getElementById("buttons").style.justifyContent="space-around";
 	document.getElementById("option").style.display="none";
+	document.getElementById("tank").style.display="block";
 }
 
 
