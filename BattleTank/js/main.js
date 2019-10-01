@@ -124,7 +124,7 @@ function change()
 {
 	playerOneName=document.getElementById("playerOne").value;
 	playerTwoName=document.getElementById("playerTwo").value;
-	if(playerOneName.length==0&&playerTwoName.length==0)
+	if(playerOneName.length==0 && playerTwoName.length==0)
 	window.alert("Please Enter the name");
 	else
 	{
@@ -416,8 +416,68 @@ function missileCheckTwo() {
 		}
 	}
 }
+ 
+function checkStorageData()
+{
+	if (typeof(Storage) !== "undefined") 
+	{ 
+		bestScore=localStorage.getItem("score");
+		if(bestScore===undefined)
+        localStorage.setItem("score",0);
+		console.log("LOCAL Storage score is :"+bestScore);
+	}
+	else
+	window.alert("Sorry, your browser does not support Web Storage...");
+}
 
-function scoreCard()
+function findBestScore()
+{
+	if(playerOneScore>=playerTwoScore && playerOneScore>=bestScore)
+		{
+			bestScore=playerOneScore;
+		}
+		else if(playerTwoScore>=bestScore)
+		{
+			 bestScore=playerTwoScore;
+		}
+}
+
+ function updateBestScore()
+ {
+	if(bestScore!=0)
+	{
+		if (typeof(Storage) !== "undefined") {
+			// Store the data
+			localStorage.setItem("score",bestScore);
+			// Retrieve the data
+			bestScore= localStorage.getItem("score");
+			console.log("Updated best score is:"+bestScore);
+		  } else {
+			window.alert("Sorry, your browser does not support Web Storage...");
+		  }  
+	}
+	else 
+	{
+		if(playerOneScore>=playerTwoScore)
+		bestScore=playerOneScore;
+		else
+		bestScore=playerTwoScore;
+		console.log("Updated best score with zero:"+bestScore);
+	}
+ }
+ 
+ function findWinner()
+ {
+	 if(playerOneScore==playerTwoScore)
+	 cx.fillText("This is just the beginning!",440,230);
+	 else if(playerOneScore>playerTwoScore)
+	 cx.fillText(playerOneName+" Wins!",500,240);
+	 else
+	 cx.fillText(playerTwoName+" Wins!",500,240);
+	  
+ }
+
+ function scoreCard()
 {
 	cx.beginPath();
 	cx.lineWidth = "6";
@@ -425,13 +485,27 @@ function scoreCard()
 	cx.fillStyle="#000000";
 	cx.fillRect(400,100, 400,350);
 	cx.fillStyle = "#fff";
-	cx.drawImage(scorecard,400,100,400,350);
+	cx.font="bold 70px warFont";
+	cx.fillText("Game Over!",435,170);
+	let firstplayer= localStorage.getItem("playerOneName");
+	let secondplayer=localStorage.getItem("playerTwoName");
+	if(firstplayer==null && secondplayer==null)
+	{
+		localStorage.setItem("playerOneName","Player-1");
+		localStorage.setItem("playerTwoName","Player-2");
+	}
 	if( localStorage.getItem("playerOneName").length==0)
 	localStorage.setItem("playerOneName","Player-1");
 	if(localStorage.getItem("playerTwoName").length==0)
 	localStorage.setItem("playerTwoName","Player-2");
-	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,510,360);
-	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,510,395);
+	cx.font="bold 32px Roboto";
+	checkStorageData();
+	findBestScore();
+	updateBestScore();
+	findWinner();
+	cx.fillText("Best Score: "+bestScore,500,280);
+	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore,500,320);
+	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore,500,370);
 	cx.fillText("Press R to replay E to Exit",406,435);
 	cx.stroke();
 }
