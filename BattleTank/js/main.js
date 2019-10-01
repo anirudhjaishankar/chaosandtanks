@@ -110,8 +110,8 @@ function Option()
 	document.getElementById("change").style.display="block";
 	document.getElementById("buttons").style.display="none";
 	document.getElementById("tank").style.display="none";
-	document.getElementById("option").style.display="flex";
-	document.getElementById("option").style.justifyContent="space-around";
+	document.getElementById("option").style.display="block";
+	
 	if(localStorage.getItem("playerOneName")===null)
 	localStorage.setItem("playerOneName","Player-1");
 	if( localStorage.getItem("playerTwoName")===null)
