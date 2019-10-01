@@ -478,7 +478,7 @@ function animation() {
 			showWind = true;
 			powerTwo += wind;
 		}
-		cx.fillText("Wind: "+ Math.round((wind * 100)), 200,100);
+		cx.fillText("Wind: "+ Math.round((wind * 100)), 600,100);
 		cx.fillRect(tankTwoX + 60, tankTwoY - 200, 40, tankTwoPower * 50);
 		cx.fillStyle = "#ff4f00";
 	}
