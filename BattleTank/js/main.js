@@ -111,9 +111,9 @@ function Option()
 	document.getElementById("buttons").style.display="none";
 	document.getElementById("option").style.display="flex";
 	document.getElementById("option").style.justifyContent="space-around";
-	if(localStorage.getItem("playerOneName").length==0)
+	if(localStorage.getItem("playerOneName")===null)
 	localStorage.setItem("playerOneName","Player-1");
-	if( localStorage.getItem("playerTwoName").length==0)
+	if( localStorage.getItem("playerTwoName")===null)
 	localStorage.setItem("playerTwoName","Player-2");
 	document.getElementById("playerOne").placeholder=localStorage.getItem("playerOneName");
 	document.getElementById("playerTwo").placeholder=localStorage.getItem("playerTwoName");
@@ -494,9 +494,9 @@ function findBestScore()
 		localStorage.setItem("playerOneName","Player-1");
 		localStorage.setItem("playerTwoName","Player-2");
 	}
-	if( localStorage.getItem("playerOneName").length==0)
+	if( localStorage.getItem("playerOneName")===null)
 	localStorage.setItem("playerOneName","Player-1");
-	if(localStorage.getItem("playerTwoName").length==0)
+	if(localStorage.getItem("playerTwoName")===null)
 	localStorage.setItem("playerTwoName","Player-2");
 	cx.font="bold 32px Roboto";
 	checkStorageData();
@@ -520,9 +520,9 @@ function animation() {
 	cx.drawImage(tankTwoImg, tankTwoX, tankTwoY, tankWidth, tankHeight);
 	cx.font = "bold 32px Trebuchet MS";
 	cx.fillStyle = "#fff";
-	if( localStorage.getItem("playerOneName").length==0)
+	if( localStorage.getItem("playerOneName")===null)
 	localStorage.setItem("playerOneName","Player-1");
-	if(localStorage.getItem("playerTwoName").length==0)
+	if(localStorage.getItem("playerTwoName")===null)
 	localStorage.setItem("playerTwoName","Player-2");
 	cx.fillText(localStorage.getItem("playerOneName")+" : "+playerOneScore, 30, 100);
 	cx.fillText(localStorage.getItem("playerTwoName")+" : "+playerTwoScore, 1050, 100);
